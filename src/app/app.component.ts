@@ -24,7 +24,8 @@ export class AppComponent {
         this.getPrice(stockSymbol);
       }
       else {
-        this.errors.push(stockSymbol)
+        this.errors.push(stockSymbol);
+        this.stock = { symbol: '' };
       }
     })
   }

@@ -21,7 +21,7 @@ export class MainService {
           this.currentPrice.push(retrievedCurrentPrice);
           cb(res.json()["Meta Data"]["2. Symbol"], true);
         }
-        else{
+        else {
           cb(this.stocks[idx].trim(), false);
         }
       });

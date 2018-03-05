@@ -9,7 +9,7 @@
     color: red;
 }
 input{
-    width: 150px;
+    width: 200px;
     margin: 0px auto;
 }
 h1, table{
@@ -21,4 +21,9 @@ h1 {
 .alert{
     width: 30%;
     margin: 20px auto;
+}
+label{
+    font-size: 20px;
+    color: rgb(16, 16, 150);
+    text-shadow: 0.5px 0.5px rgb(1, 1, 63);
 }
