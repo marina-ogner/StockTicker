@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MainService } from './main.service';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,27 +8,32 @@ import { MainService } from './main.service';
 })
 export class AppComponent {
   stock: object;
-  stocks: {name: string, price: number, priceCompare: string, priceYesterday: number, volume: number, divident: number, closePrice: number}[];
-  // price: Array<any> = [];
+  errors: string[];
+  stocks: { name: string, currentPrice: number, priceCompare: string, priceYesterday: number, volume: number, divident: number, closePrice: number }[];
+
+  currentPrice = Number;
   constructor(private _mainService: MainService) {
     this.stock = { symbol: '' };
   }
 
-  getPrice() {
+  getCurrentPrice() {
+    this.errors = [];
+    this._mainService.getCurrentPrice(this.stock, (stockSymbol, valid) => {
+      if (valid === true) {
+        this.getPrice(stockSymbol);
+      }
+      else {
+        this.errors.push(stockSymbol)
+      }
+    })
+  }
+
+  getPrice(stockSymbol) {
     this.stocks = [];
-    this._mainService.getPrice(this.stock, (Name, Price, PriceYesterday, Volume, Divident, ClosePrice) => {
-      var retrievedStock = {name: Name, price: Price, priceCompare: (Price-PriceYesterday).toFixed(2), priceYesterday: PriceYesterday, volume: Volume, divident: Divident, closePrice: ClosePrice};
+    this._mainService.getPrice(stockSymbol, (Name, CurrentPrice, PriceYesterday, Volume, Divident, ClosePrice) => {
+      var retrievedStock = { name: Name, currentPrice: CurrentPrice, priceCompare: (CurrentPrice - PriceYesterday).toFixed(2), priceYesterday: PriceYesterday, volume: Volume, divident: Divident, closePrice: ClosePrice };
       this.stocks.push(retrievedStock);
       this.stock = { symbol: '' };
-      // console.log("in comp", this.prices);
     });
   }
-  // showPrice(i) {
-  //   this._mainService.showPrice((data) => {
-  //     this.prices.push(data[i]);
-  //     console.log("in comp",this.prices);
-  //   })
-  // };
-
-
 }

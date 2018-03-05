@@ -1,39 +1,55 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<div style="text-align:center">
+<div class="wrapper">
   <h1>
     Welcome to Stock Information
   </h1>
- 
-  <form (submit)="getPrice()" #formData='ngForm'>
-    <input type="text" placeholder = "Stock Ticker Symbol" name="symbol" required minlength="3" [(ngModel)]="stock.symbol" pattern="^(.{3,})$" #titleModel="ngModel"> 
-    <input type="submit"  [disabled]="!formData.valid" value="Get Information">
-</form>
 
+  <form (submit)="getCurrentPrice()" #formData='ngForm'>
+    <div class="form-group">
+      <label class="col-form-label" for="inputDefault">Enter Stock Ticker Symbol: </label>
+      <input type="text" class="form-control" id="inputDefault" wtx-context="5639BA45-84DD-41D1-9433-592F71827865" name="symbol"
+        required minlength="3" [(ngModel)]="stock.symbol" pattern="^(.{3,})$" #titleModel="ngModel">
+    </div>
+    <button class="btn btn-outline-primary" [disabled]="!formData.valid">Get Information</button>
+  </form>
 
-  <table>
-    <tr>
-      <th>Stock Ticker Symbol</th>
-      <th>Today's Open Price</th>
-      <th>Compare to Previous Day</th>
-      <th>Previous Day's Close Price</th>
-      <th>Volume</th>
-      <th>Divident Amount</th>
-      <th>Today's Close Price</th>
-    </tr>
-    <tr *ngFor="let stock of stocks">
-        <td>{{stock.name}}</td>
-        <td>{{stock.price}}</td>
-        <ng-container *ngIf="stock.priceCompare>=0">
-        <td id = "green">+{{stock.priceCompare}}</td>
-      </ng-container>
-      <ng-container *ngIf="stock.priceCompare<0">
-          <td id = "red"> {{stock.priceCompare}}</td>
-        </ng-container>
-        <td>{{stock.priceYesterday}}</td>
-        <td>{{stock.volume}}</td>
-        <td>{{stock.divident}}</td>
-        <td>{{stock.closePrice}}</td>
-    </tr>
-  </table>
+  <div *ngIf="stocks">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Stock Ticker Symbol</th>
+          <th scope="col">Current Price</th>
+          <th scope="col">Compare to Previous Day</th>
+          <th scope="col">Previous Day's Close Price</th>
+          <th scope="col">Volume</th>
+          <th scope="col">Divident Amount</th>
+          <th scope="col">Close Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stock of stocks">
+          <td>{{stock.name}}</td>
+          <td>{{stock.currentPrice}}</td>
+          <ng-container *ngIf="stock.priceCompare>=0">
+            <td id="green">+{{stock.priceCompare}}</td>
+          </ng-container>
+          <ng-container *ngIf="stock.priceCompare<0">
+            <td id="red"> {{stock.priceCompare}}</td>
+          </ng-container>
+          <td>{{stock.priceYesterday}}</td>
+          <td>{{stock.volume}}</td>
+          <td>{{stock.divident}}</td>
+          <td>{{stock.closePrice}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
+  <ng-container *ngIf="errors">
+    <div *ngFor="let error of errors" class="alert alert-dismissible alert-primary">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>"{{error}}" </strong> symbol was not found
+    </div>
+  </ng-container>
+</div>
