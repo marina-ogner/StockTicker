@@ -18,6 +18,7 @@ export class AppComponent {
 
   getCurrentPrice() {
     this.errors = [];
+    this.stocks = [];
     this._mainService.getCurrentPrice(this.stock, (stockSymbol, valid) => {
       if (valid === true) {
         this.getPrice(stockSymbol);
@@ -30,7 +31,6 @@ export class AppComponent {
   }
 
   getPrice(stockSymbol) {
-    this.stocks = [];
     this._mainService.getPrice(stockSymbol, (Name, CurrentPrice, PriceYesterday, Volume, Divident, ClosePrice) => {
       var retrievedStock = { name: Name, currentPrice: CurrentPrice, priceCompare: (CurrentPrice - PriceYesterday).toFixed(2), priceYesterday: PriceYesterday, volume: Volume, divident: Divident, closePrice: ClosePrice };
       this.stocks.push(retrievedStock);
