@@ -14,10 +14,10 @@ export class MainService {
     var idx = -1;
     for (var i = 0; i < this.stocks.length; i++) {
       var stockSymbol = this.stocks[i].trim();
-      this._http.get('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + stockSymbol + '&interval=1min&apikey=GT13K1EANRVG5KOS').subscribe((res) => {
+      this._http.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + stockSymbol + '&apikey=GT13K1EANRVG5KOS').subscribe((res) => {
         idx++;  
       if (!res.json()["Error Message"]) {
-          var retrievedCurrentPrice = { name: res.json()["Meta Data"]["2. Symbol"], price: res.json()["Time Series (1min)"][Object.keys(res.json()["Time Series (1min)"])[0]]["4. close"] };
+          var retrievedCurrentPrice = { name: res.json()["Meta Data"]["2. Symbol"], price: res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[0]]["1. open"] };
           this.currentPrice.push(retrievedCurrentPrice);
           cb(res.json()["Meta Data"]["2. Symbol"], true);
         }
@@ -36,7 +36,7 @@ export class MainService {
           var currentPr = this.currentPrice[i].price;
         }
       }
-      cb(res.json()["Meta Data"]["2. Symbol"], currentPr, res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[1]]["5. adjusted close"], res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[0]]["6. volume"], res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[0]]["7. dividend amount"], res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[0]]["4. close"]);
+      cb(res.json()["Meta Data"]["2. Symbol"], currentPr, res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[1]]["5. adjusted close"], res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[0]]["6. volume"], res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[0]]["7. dividend amount"]);
     })
   }
 };
