@@ -15,13 +15,13 @@ export class MainService {
     for (var i = 0; i < this.stocks.length; i++) {
       var stockSymbol = this.stocks[i].trim();
       this._http.get('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + stockSymbol + '&interval=1min&apikey=GT13K1EANRVG5KOS').subscribe((res) => {
-        idx++;  
-      if (!res.json()["Error Message"]) {
+        idx++; // to get the right symbol because of asynchronous javascript
+        if (!res.json()["Error Message"]) {
           var retrievedCurrentPrice = { name: res.json()["Meta Data"]["2. Symbol"], price: res.json()["Time Series (1min)"][Object.keys(res.json()["Time Series (1min)"])[0]]["4. close"] };
           this.currentPrice.push(retrievedCurrentPrice);
           cb(res.json()["Meta Data"]["2. Symbol"], true);
         }
-        else{
+        else {
           cb(this.stocks[idx].trim(), false);
         }
       });
