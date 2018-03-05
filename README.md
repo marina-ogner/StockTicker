@@ -1,8 +1,17 @@
 Run `npm install` to install necessary modules.
 
+`npm install -g @angular/cli` to install @angular/cli globally.
+
 Run `ng serve` for a dev server. 
 
 Navigate to `http://localhost:4200/`.
+
+If with any input you get "symbol was not found" please use another branch. Sometimes the API (https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=1min&apikey=demo) that returns current price updated realtime doesn't work.
+
+
+
+
+
 
 
 
