@@ -9,7 +9,7 @@ import { MainService } from './main.service';
 export class AppComponent {
   stock: object;
   errors: string[];
-  stocks: { name: string, currentPrice: number, priceCompare: string, priceYesterday: number, volume: number, divident: number, closePrice: number }[];
+  stocks: { name: string, currentPrice: number, priceCompare: string, priceYesterday: number, volume: number, divident: number}[];
 
   currentPrice = Number;
   constructor(private _mainService: MainService) {
@@ -31,8 +31,8 @@ export class AppComponent {
   }
 
   getPrice(stockSymbol) {
-    this._mainService.getPrice(stockSymbol, (Name, CurrentPrice, PriceYesterday, Volume, Divident, ClosePrice) => {
-      var retrievedStock = { name: Name, currentPrice: CurrentPrice, priceCompare: (CurrentPrice - PriceYesterday).toFixed(2), priceYesterday: PriceYesterday, volume: Volume, divident: Divident, closePrice: ClosePrice };
+    this._mainService.getPrice(stockSymbol, (Name, CurrentPrice, PriceYesterday, Volume, Divident) => {
+      var retrievedStock = { name: Name, currentPrice: CurrentPrice, priceCompare: (CurrentPrice - PriceYesterday).toFixed(2), priceYesterday: PriceYesterday, volume: Volume, divident: Divident};
       this.stocks.push(retrievedStock);
       this.stock = { symbol: '' };
     });

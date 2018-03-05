@@ -36,7 +36,7 @@ export class MainService {
           var currentPr = this.currentPrice[i].price;
         }
       }
-      cb(res.json()["Meta Data"]["2. Symbol"], currentPr, res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[1]]["5. adjusted close"], res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[0]]["6. volume"], res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[0]]["7. dividend amount"], res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[0]]["4. close"]);
+      cb(res.json()["Meta Data"]["2. Symbol"], currentPr, res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[1]]["5. adjusted close"], res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[0]]["6. volume"], res.json()["Time Series (Daily)"][Object.keys(res.json()["Time Series (Daily)"])[0]]["7. dividend amount"]);
     })
   }
 };
